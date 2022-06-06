@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "861195133041",
+    "project_id": "tugas-uas-c9e8d",
+    "storage_bucket": "tugas-uas-c9e8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861195133041:android:79c1362bbf628cacdebbd0",
+        "android_client_info": {
+          "package_name": "com.example.marketplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861195133041-37j219n25gk1f2ubpc17vrf5qb52eaqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe3Up1mhOvY_nVxel4VJQXgKp9QKX6Bew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861195133041-37j219n25gk1f2ubpc17vrf5qb52eaqt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
