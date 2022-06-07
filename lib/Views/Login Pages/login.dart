@@ -64,178 +64,189 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   color: ThemesColor().rawblue,
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 15,
-                    right: 15,
-                    top: 120,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: const EdgeInsets.all(18),
-                  child: Form(
-                    key: _key,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 50,
-                            fontWeight: FontWeight.w700,
-                          ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 45),
+                      const CircleAvatar(
+                        radius: 90,
+                        backgroundImage:
+                            AssetImage('assets/images/milenial.png'),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        const SizedBox(height: 25),
-                        textField(
-                          controller: _emailController,
-                          lable: 'Email',
-                          valid: (value) {
-                            if (value!.isEmpty) {
-                              return 'Enter some Email';
-                            } else if (!EmailValidator.validate(value)) {
-                              return 'Masukkan format yang sesuai';
-                            }
-                            return null;
-                          },
-                          onChange: (e) {
-                            setState(() {
-                              !submit1;
-                            });
-                            return null;
-                          },
-                          boolean: false,
-                          submit: submit1
-                              ? AutovalidateMode.onUserInteraction
-                              : AutovalidateMode.disabled,
-                        ),
-                        textField(
-                          controller: _passwordController,
-                          lable: 'Password',
-                          valid: (value) {
-                            if (value!.isEmpty) {
-                              return 'Password cannot be null';
-                            }
-                            return null;
-                          },
-                          boolean: _passwordVisible,
-                          submit: submit2
-                              ? AutovalidateMode.onUserInteraction
-                              : AutovalidateMode.disabled,
-                          onChange: (e) {
-                            setState(() {
-                              !submit2;
-                            });
-                            return null;
-                          },
-                          icon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _passwordVisible = !_passwordVisible;
-                              });
-                            },
-                            icon: Icon(
-                              _passwordVisible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 35),
-                        InkWell(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: ThemesColor().rawblue,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            child: const Text(
-                              'Sign In',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          onTap: () async {
-                            String email = _emailController.text;
-                            String pass = _passwordController.text;
-                            if (_key.currentState!.validate()) {
-                              setState(() {
-                                isloading = true;
-                              });
-                              try {
-                                await _auth.signInWithEmailAndPassword(
-                                    email: email, password: pass);
-                                if (!mounted) {
-                                  return setState(() {
-                                    isloading = false;
+                        padding: const EdgeInsets.all(18),
+                        child: Form(
+                          key: _key,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // const SizedBox(height: 20),
+                              // const Text(
+                              //   'Login',
+                              //   style: TextStyle(
+                              //     color: Colors.black54,
+                              //     fontSize: 50,
+                              //     fontWeight: FontWeight.w700,
+                              //   ),
+                              // ),
+                              textField(
+                                controller: _emailController,
+                                lable: 'Email',
+                                valid: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Enter some Email';
+                                  } else if (!EmailValidator.validate(value)) {
+                                    return 'Masukkan format yang sesuai';
+                                  }
+                                  return null;
+                                },
+                                onChange: (e) {
+                                  setState(() {
+                                    !submit1;
                                   });
-                                }
-                                await Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MyHome(),
+                                  return null;
+                                },
+                                boolean: false,
+                                submit: submit1
+                                    ? AutovalidateMode.onUserInteraction
+                                    : AutovalidateMode.disabled,
+                              ),
+                              textField(
+                                controller: _passwordController,
+                                lable: 'Password',
+                                valid: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Password cannot be null';
+                                  }
+                                  return null;
+                                },
+                                boolean: _passwordVisible,
+                                submit: submit2
+                                    ? AutovalidateMode.onUserInteraction
+                                    : AutovalidateMode.disabled,
+                                onChange: (e) {
+                                  setState(() {
+                                    !submit2;
+                                  });
+                                  return null;
+                                },
+                                icon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _passwordVisible = !_passwordVisible;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    _passwordVisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.grey,
                                   ),
-                                );
-                              } on FirebaseAuthException catch (e) {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    title: const Text("Ops! Login Failed"),
-                                    content: Text('${e.message}'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text('Okay'),
-                                      )
-                                    ],
-                                  ),
-                                );
-                                setState(() {
-                                  isloading = false;
-                                });
-                              }
-                            }
-                          },
-                        ),
-                        const SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Belum punya akun ?'),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const RegisterPage(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                'Daftar',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: ThemesColor().purple,
                                 ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 35),
+                              InkWell(
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: ThemesColor().rawblue,
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  child: const Text(
+                                    'Sign In',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () async {
+                                  String email = _emailController.text;
+                                  String pass = _passwordController.text;
+                                  if (_key.currentState!.validate()) {
+                                    setState(() {
+                                      isloading = true;
+                                    });
+                                    try {
+                                      await _auth.signInWithEmailAndPassword(
+                                          email: email, password: pass);
+                                      if (!mounted) {
+                                        return setState(() {
+                                          isloading = false;
+                                        });
+                                      }
+                                      await Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const MyHome(),
+                                        ),
+                                      );
+                                    } on FirebaseAuthException catch (e) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (_) => AlertDialog(
+                                          title:
+                                              const Text("Ops! Login Failed"),
+                                          content: Text('${e.message}'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Okay'),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                      setState(() {
+                                        isloading = false;
+                                      });
+                                    }
+                                  }
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('Belum punya akun ?'),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => const RegisterPage(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Daftar',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: ThemesColor().purple,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 15),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],

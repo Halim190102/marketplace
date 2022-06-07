@@ -29,7 +29,7 @@ class _InvoiceState extends State<Invoice> {
         title: const Text('Invoice Pembelian'),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.only(top: 15, left: 3, right: 3),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

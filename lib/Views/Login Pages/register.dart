@@ -50,243 +50,258 @@ class _RegisterPageState extends State<RegisterPage> {
                 Container(
                   color: ThemesColor().rawblue,
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 15,
-                    right: 15,
-                    top: 120,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: const EdgeInsets.all(18),
-                  child: Form(
-                    key: _key,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Register',
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 50,
-                            fontWeight: FontWeight.w700,
-                          ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 45),
+                      const CircleAvatar(
+                        radius: 90,
+                        backgroundImage:
+                            AssetImage('assets/images/milenial.png'),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        const SizedBox(height: 25),
-                        textField(
-                          controller: _nameController,
-                          lable: 'Name',
-                          valid: (value) {
-                            if (value!.isEmpty) {
-                              return 'Name can\'t be empty';
-                            }
-                            return null;
-                          },
-                          onChange: (e) {
-                            setState(() {
-                              !submit1;
-                            });
-                            return null;
-                          },
-                          boolean: false,
-                          submit: submit1
-                              ? AutovalidateMode.onUserInteraction
-                              : AutovalidateMode.disabled,
-                        ),
-                        textField(
-                          controller: _emailController,
-                          lable: 'Email',
-                          valid: (value) {
-                            if (value!.isEmpty) {
-                              return 'Enter some Email';
-                            } else if (!EmailValidator.validate(value)) {
-                              return 'Masukkan format yang sesuai';
-                            }
-                            return null;
-                          },
-                          onChange: (e) {
-                            setState(() {
-                              !submit2;
-                            });
-                            return null;
-                          },
-                          boolean: false,
-                          submit: submit2
-                              ? AutovalidateMode.onUserInteraction
-                              : AutovalidateMode.disabled,
-                        ),
-                        textField(
-                          controller: _passwordController,
-                          lable: 'Password',
-                          valid: (value) {
-                            if (value!.isEmpty) {
-                              return 'Password cannot be null';
-                            } else if (value.length < 6) {
-                              return 'Enter at least 8 Characters';
-                            }
-                            return null;
-                          },
-                          boolean: _passwordVisible1,
-                          submit: submit3
-                              ? AutovalidateMode.onUserInteraction
-                              : AutovalidateMode.disabled,
-                          onChange: (e) {
-                            setState(() {
-                              !submit3;
-                            });
-                            return null;
-                          },
-                          icon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _passwordVisible1 = !_passwordVisible1;
-                              });
-                            },
-                            icon: Icon(
-                              _passwordVisible1
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        textField(
-                          controller: _passwordControllerConfirm,
-                          lable: 'Confirm Password',
-                          valid: (value) {
-                            if (value!.isEmpty) {
-                              return 'Password cannot be null';
-                            } else if (value.length < 6) {
-                              return 'Enter at least 8 Characters';
-                            } else if (value != _passwordController.text) {
-                              return 'Password must be the same';
-                            }
-                            return null;
-                          },
-                          boolean: _passwordVisible2,
-                          submit: submit4
-                              ? AutovalidateMode.onUserInteraction
-                              : AutovalidateMode.disabled,
-                          onChange: (e) {
-                            setState(() {
-                              !submit4;
-                            });
-                            return null;
-                          },
-                          icon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _passwordVisible2 = !_passwordVisible2;
-                              });
-                            },
-                            icon: Icon(
-                              _passwordVisible2
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 35),
-                        InkWell(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: ThemesColor().rawblue,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            child: const Text(
-                              'Sign In',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          onTap: () async {
-                            String name = _nameController.text;
-                            String email = _emailController.text;
-                            String pass = _passwordControllerConfirm.text;
-                            User? user;
-                            if (_key.currentState!.validate()) {
-                              setState(() {
-                                isloading = true;
-                              });
-                              try {
-                                UserCredential userCredential =
-                                    await _auth.createUserWithEmailAndPassword(
-                                        email: email, password: pass);
-                                user = userCredential.user;
-                                await user!.updateDisplayName(name);
-                                await user.reload();
-                                if (!mounted) {
-                                  return setState(() {
-                                    isloading = false;
+                        padding: const EdgeInsets.all(18),
+                        child: Form(
+                          key: _key,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // const SizedBox(height: 20),
+                              // const Text(
+                              //   'Register',
+                              //   style: TextStyle(
+                              //     color: Colors.black54,
+                              //     fontSize: 50,
+                              //     fontWeight: FontWeight.w700,
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 25),
+                              textField(
+                                controller: _nameController,
+                                lable: 'Name',
+                                valid: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Name can\'t be empty';
+                                  }
+                                  return null;
+                                },
+                                onChange: (e) {
+                                  setState(() {
+                                    !submit1;
                                   });
-                                }
-                                // final userid = user.uid;
-                                // final profile = Provider.of<DataProfil>(context,
-                                //     listen: false);
-                                // await profile.addProfil(userid, name, pass);
-                                // if (!mounted) return;
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MyHome(),
+                                  return null;
+                                },
+                                boolean: false,
+                                submit: submit1
+                                    ? AutovalidateMode.onUserInteraction
+                                    : AutovalidateMode.disabled,
+                              ),
+                              textField(
+                                controller: _emailController,
+                                lable: 'Email',
+                                valid: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Enter some Email';
+                                  } else if (!EmailValidator.validate(value)) {
+                                    return 'Masukkan format yang sesuai';
+                                  }
+                                  return null;
+                                },
+                                onChange: (e) {
+                                  setState(() {
+                                    !submit2;
+                                  });
+                                  return null;
+                                },
+                                boolean: false,
+                                submit: submit2
+                                    ? AutovalidateMode.onUserInteraction
+                                    : AutovalidateMode.disabled,
+                              ),
+                              textField(
+                                controller: _passwordController,
+                                lable: 'Password',
+                                valid: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Password cannot be null';
+                                  } else if (value.length < 6) {
+                                    return 'Enter at least 8 Characters';
+                                  }
+                                  return null;
+                                },
+                                boolean: _passwordVisible1,
+                                submit: submit3
+                                    ? AutovalidateMode.onUserInteraction
+                                    : AutovalidateMode.disabled,
+                                onChange: (e) {
+                                  setState(() {
+                                    !submit3;
+                                  });
+                                  return null;
+                                },
+                                icon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _passwordVisible1 = !_passwordVisible1;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    _passwordVisible1
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.grey,
                                   ),
-                                  (route) => false,
-                                );
-                              } on FirebaseAuthException catch (e) {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    title: const Text("Ops! Login Failed"),
-                                    content: Text('${e.message}'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text('Okay'),
-                                      )
-                                    ],
-                                  ),
-                                );
-                                setState(() {
-                                  isloading = false;
-                                });
-                              }
-                            }
-                          },
-                        ),
-                        const SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Sudah punya akun ?'),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                'Login',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: ThemesColor().purple,
                                 ),
                               ),
-                            ),
-                          ],
+                              textField(
+                                controller: _passwordControllerConfirm,
+                                lable: 'Confirm Password',
+                                valid: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Password cannot be null';
+                                  } else if (value.length < 6) {
+                                    return 'Enter at least 8 Characters';
+                                  } else if (value !=
+                                      _passwordController.text) {
+                                    return 'Password must be the same';
+                                  }
+                                  return null;
+                                },
+                                boolean: _passwordVisible2,
+                                submit: submit4
+                                    ? AutovalidateMode.onUserInteraction
+                                    : AutovalidateMode.disabled,
+                                onChange: (e) {
+                                  setState(() {
+                                    !submit4;
+                                  });
+                                  return null;
+                                },
+                                icon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _passwordVisible2 = !_passwordVisible2;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    _passwordVisible2
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 35),
+                              InkWell(
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: ThemesColor().rawblue,
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  child: const Text(
+                                    'Sign In',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () async {
+                                  String name = _nameController.text;
+                                  String email = _emailController.text;
+                                  String pass = _passwordControllerConfirm.text;
+                                  User? user;
+                                  if (_key.currentState!.validate()) {
+                                    setState(() {
+                                      isloading = true;
+                                    });
+                                    try {
+                                      UserCredential userCredential =
+                                          await _auth
+                                              .createUserWithEmailAndPassword(
+                                                  email: email, password: pass);
+                                      user = userCredential.user;
+                                      await user!.updateDisplayName(name);
+                                      await user.reload();
+                                      if (!mounted) {
+                                        return setState(() {
+                                          isloading = false;
+                                        });
+                                      }
+                                      // final userid = user.uid;
+                                      // final profile = Provider.of<DataProfil>(context,
+                                      //     listen: false);
+                                      // await profile.addProfil(userid, name, pass);
+                                      // if (!mounted) return;
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const MyHome(),
+                                        ),
+                                        (route) => false,
+                                      );
+                                    } on FirebaseAuthException catch (e) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (_) => AlertDialog(
+                                          title:
+                                              const Text("Ops! Login Failed"),
+                                          content: Text('${e.message}'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Okay'),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                      setState(() {
+                                        isloading = false;
+                                      });
+                                    }
+                                  }
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('Sudah punya akun ?'),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      'Login',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: ThemesColor().purple,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],
